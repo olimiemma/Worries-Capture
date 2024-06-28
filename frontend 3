@@ -1,0 +1,57 @@
+/**
+ * v0 by Vercel.
+ * @see https://v0.dev/t/sr5BJkmV07x
+ * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
+ */
+"use client"
+
+import { useState } from "react"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Button } from "@/components/ui/button"
+
+export default function Component() {
+  const [name, setName] = useState("")
+  const [message, setMessage] = useState("")
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      console.log("Saving data:", { name, message })
+      setName("")
+      setMessage("")
+    } catch (error) {
+      console.error("Error saving data:", error)
+    }
+  }
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <Card className="w-full max-w-md p-6">
+        <CardHeader>
+          <CardTitle>Share Your Thoughts</CardTitle>
+          <CardDescription>Enter your name and a message to save it.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Name</Label>
+              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter your name" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="message">Message</Label>
+              <Textarea
+                id="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Enter your thoughts or comments"
+                className="min-h-[120px]"
+              />
+            </div>
+            <Button type="submit">Save</Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
